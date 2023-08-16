@@ -1,5 +1,7 @@
-import { ref, computed, reactive } from 'vue'
+import { reactive } from 'vue'
 import { defineStore } from 'pinia'
+
+import  type { LoginParams } from './types'
 
 export const useUserStore = defineStore('user', () => {
     const state = reactive({
@@ -7,7 +9,9 @@ export const useUserStore = defineStore('user', () => {
         name: "",
         role: ""
     })
-    function login(loginParams: any){
+    const login = (loginParams: LoginParams) => {
         console.log('登录', loginParams)
+        state.name = loginParams.account
     }
+    return { state, login } 
 })

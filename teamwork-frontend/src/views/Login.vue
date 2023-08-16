@@ -1,21 +1,22 @@
 <template>
-  <div class="login-class">
-    <el-form ref="loginRef" v-model="loginParams">
+  <el-card class="login-class">
+    <el-form ref="loginRef" :model="loginParams" label-position="top">
       <el-form-item label="用户名" label-width="80" prop="account">
-        <el-input :model="loginParams.account"></el-input>
+        <el-input v-model="loginParams.account"></el-input>
       </el-form-item>
       <el-form-item label="密码" label-width="80" prop="password">
-        <el-input :model="loginParams.password"></el-input>
+        <el-input v-model="loginParams.password"></el-input>
       </el-form-item>
-      <el-form-item label-width="80">
-        <el-button type="primary" class="confirm" @click="login">登录</el-button>
-      </el-form-item>
+      <el-button type="primary" class="confirm" @click="login">登录</el-button>
     </el-form>
-  </div>
+  </el-card>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue'
+import { useUserStore } from '@/stores/useUserStore';
+
+const userStore = useUserStore()
 // 登录参数
 const loginParams = reactive({
   account: '',
@@ -24,18 +25,20 @@ const loginParams = reactive({
 
 // 登录按钮
 const login = () => {
-  console.log('login', loginParams)
   // 创建user状态，保存登录成功后的状态
+  userStore.login(loginParams)
 }
 
 </script>
 
 <style lang="scss" scoped>
 .login-class {
-  width: 25vw;
+  width: 20%;
+  height: 25%;
   position: absolute;
-  top: 30%;
-  left: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   .confirm{
     width: 100%;
   }
